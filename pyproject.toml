@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pactwatch"
+version = "0.1.0"
+description = "An OpenAPI breaking-change detector that knows which downstream consumers will actually break."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [
+    { name = "Mujeeb Lawal-Saka" },
+]
+keywords = ["openapi", "breaking-changes", "microservices", "api", "ci-cd"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.0",
+    "prance>=23.6",
+    "openapi-spec-validator>=0.7",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+pactwatch = "pactwatch.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/pyjeebz/pactwatch"
+Repository = "https://github.com/pyjeebz/pactwatch"
+Issues = "https://github.com/pyjeebz/pactwatch/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
