@@ -1,0 +1,27 @@
+openapi: "3.0.3"
+info:
+  title: Test API
+  version: "1.0.0"
+paths:
+  /orders:
+    post:
+      summary: Create order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+                - quantity
+              properties:
+                product_id:
+                  type: string
+                quantity:
+                  type: integer
+                note:
+                  type: string
+      responses:
+        "201":
+          description: Created

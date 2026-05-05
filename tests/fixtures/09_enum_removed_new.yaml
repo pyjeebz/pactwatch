@@ -1,0 +1,30 @@
+openapi: "3.0.3"
+info:
+  title: Test API
+  version: "1.0.0"
+paths:
+  /orders/{id}:
+    get:
+      summary: Get order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - pending
+                      - shipped
+                      - delivered

@@ -1,0 +1,56 @@
+openapi: "3.0.3"
+info:
+  title: Test API
+  version: "1.0.0"
+paths:
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      description: Retrieve a user by their unique identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                properties:
+                  id:
+                    type: string
+                  age:
+                    type: string
+                  avatar_url:
+                    type: string
+  /orders:
+    post:
+      summary: Create order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+              properties:
+                product_id:
+                  type: string
+                gift_message:
+                  type: string
+      responses:
+        "201":
+          description: Created
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: OK
