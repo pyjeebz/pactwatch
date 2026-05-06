@@ -1,5 +1,9 @@
 # PactWatch
 
+[![PyPI version](https://img.shields.io/pypi/v/pactwatch)](https://pypi.org/project/pactwatch/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pactwatch)](https://pypi.org/project/pactwatch/)
+[![License](https://img.shields.io/pypi/l/pactwatch)](https://github.com/pyjeebz/pactwatch/blob/main/LICENSE)
+
 > Your microservices have a contract. PactWatch enforces it before merge.
 
 An OpenAPI breaking-change detector that knows which downstream consumers will actually break. Most API diff tools tell you *what* changed. PactWatch tells you *who cares*.
