@@ -3,8 +3,8 @@ description: 'Detect breaking API changes and report per-consumer impact on pull
 author: 'Mujeeb Lawal-Saka'
 
 branding:
-  icon: 'shield'
-  color: 'blue'
+  icon: 'eye'
+  color: 'purple'
 
 inputs:
   config:
