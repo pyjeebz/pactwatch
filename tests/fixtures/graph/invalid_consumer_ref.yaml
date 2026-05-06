@@ -1,0 +1,11 @@
+version: 1
+producers:
+  api:
+    spec: ./api_old.yaml
+
+consumers:
+  bad-consumer:
+    consumes:
+      - producer: nonexistent
+        endpoints:
+          - GET /foo

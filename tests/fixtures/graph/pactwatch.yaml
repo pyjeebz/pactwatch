@@ -1,0 +1,23 @@
+version: 1
+producers:
+  api:
+    spec: ./api_old.yaml
+  payments:
+    spec: ./payments_old.yaml
+
+consumers:
+  mobile-app:
+    consumes:
+      - producer: api
+        endpoints:
+          - GET /users/{id}
+          - POST /orders
+      - producer: payments
+        endpoints:
+          - POST /charges
+  web-dashboard:
+    consumes:
+      - producer: api
+        endpoints:
+          - GET /users/{id}
+          - GET /admin/settings

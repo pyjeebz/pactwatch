@@ -1,0 +1,11 @@
+version: 1
+producers:
+  api:
+    spec: ./api_old.yaml
+
+consumers:
+  admin-dashboard:
+    consumes:
+      - producer: api
+        endpoints:
+          - GET /admin/*
