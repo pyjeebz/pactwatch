@@ -1,0 +1,39 @@
+name: 'PactWatch'
+description: 'Detect breaking API changes and report per-consumer impact on pull requests.'
+author: 'Mujeeb Lawal-Saka'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  config:
+    description: 'Path to pactwatch.yaml config file'
+    required: true
+  producer:
+    description: 'Name of the producer to check'
+    required: true
+  old-spec:
+    description: 'Path to the old (base) OpenAPI spec'
+    required: true
+  new-spec:
+    description: 'Path to the new (head) OpenAPI spec'
+    required: true
+  fail-on-breaking:
+    description: 'Fail the action if breaking changes are detected'
+    required: false
+    default: 'true'
+  github-token:
+    description: 'GitHub token for PR comments and status checks'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  has-breaking:
+    description: 'Whether breaking changes were detected (true/false)'
+  report:
+    description: 'The full markdown report'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
