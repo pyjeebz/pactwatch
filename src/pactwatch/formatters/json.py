@@ -54,3 +54,48 @@ def _sanitize_detail(detail: dict) -> dict:
         else:
             sanitized[key] = str(value)
     return sanitized
+
+
+def format_check_json(
+    producer: str,
+    results: dict[str, list[ClassifiedChange]],
+) -> str:
+    """Return a JSON string representing per-consumer impact.
+
+    Structure:
+        {
+            "producer": "api",
+            "consumers": {
+                "mobile-app": {
+                    "summary": {"breaking": 1, "risky": 0, "safe": 0},
+                    "changes": [...]
+                }
+            }
+        }
+    """
+    consumers_output = {}
+    for consumer_name, changes in sorted(results.items()):
+        groups: dict[str, int] = {"breaking": 0, "risky": 0, "safe": 0}
+        for c in changes:
+            groups[c.severity.value.lower()] += 1
+
+        consumers_output[consumer_name] = {
+            "summary": groups,
+            "changes": [
+                {
+                    "severity": c.severity.value,
+                    "message": c.message,
+                    "path": c.path,
+                    "detail": _sanitize_detail(c.change.detail),
+                }
+                for c in changes
+            ],
+        }
+
+    output = {
+        "producer": producer,
+        "consumers": consumers_output,
+    }
+
+    return _json.dumps(output, indent=2)
+
