@@ -1,0 +1,20 @@
+version: 1
+producers:
+  user-api:
+    spec: ./services/producer-api/openapi.yaml
+
+consumers:
+  mobile-app:
+    consumes:
+      - producer: user-api
+        endpoints:
+          - GET /users/{id}
+          - POST /users
+          - GET /users/{id}/orders
+  web-dashboard:
+    consumes:
+      - producer: user-api
+        endpoints:
+          - GET /users/{id}
+          - GET /users
+          - GET /admin/*
