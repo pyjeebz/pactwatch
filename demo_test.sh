@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-# PactWatch Demo Test Script
+# Breakwatch Demo Test Script
 # Exercises both CLI commands against the demo-monorepo fixtures
 # ============================================================
 
@@ -9,10 +9,10 @@ set -euo pipefail
 DEMO="examples/demo-monorepo"
 OLD="$DEMO/services/producer-api/openapi.yaml"
 NEW="$DEMO/services/producer-api/openapi-breaking.yaml"
-CONFIG="$DEMO/pactwatch.yaml"
+CONFIG="$DEMO/breakwatch.yaml"
 
 echo "============================================"
-echo "  PactWatch — Demo Test Script"
+echo "  Breakwatch — Demo Test Script"
 echo "============================================"
 echo
 
@@ -27,27 +27,27 @@ echo "All tests passed."
 echo
 
 # ----------------------------------------------------------
-# 2. pactwatch diff  (text output)
+# 2. breakwatch diff  (text output)
 # ----------------------------------------------------------
-echo ">>> 2. pactwatch diff (text format)"
+echo ">>> 2. breakwatch diff (text format)"
 echo "--------------------------------------------"
-pactwatch diff "$OLD" "$NEW" --format text || true
+breakwatch diff "$OLD" "$NEW" --format text || true
 echo
 
 # ----------------------------------------------------------
-# 3. pactwatch diff  (JSON output)
+# 3. breakwatch diff  (JSON output)
 # ----------------------------------------------------------
-echo ">>> 3. pactwatch diff (JSON format)"
+echo ">>> 3. breakwatch diff (JSON format)"
 echo "--------------------------------------------"
-pactwatch diff "$OLD" "$NEW" --format json || true
+breakwatch diff "$OLD" "$NEW" --format json || true
 echo
 
 # ----------------------------------------------------------
-# 4. pactwatch check — all consumers (text)
+# 4. breakwatch check — all consumers (text)
 # ----------------------------------------------------------
-echo ">>> 4. pactwatch check — all consumers (text)"
+echo ">>> 4. breakwatch check — all consumers (text)"
 echo "--------------------------------------------"
-pactwatch check \
+breakwatch check \
   --config "$CONFIG" \
   --producer user-api \
   --old "$OLD" \
@@ -56,11 +56,11 @@ pactwatch check \
 echo
 
 # ----------------------------------------------------------
-# 5. pactwatch check — single consumer (mobile-app)
+# 5. breakwatch check — single consumer (mobile-app)
 # ----------------------------------------------------------
-echo ">>> 5. pactwatch check — single consumer: mobile-app"
+echo ">>> 5. breakwatch check — single consumer: mobile-app"
 echo "--------------------------------------------"
-pactwatch check \
+breakwatch check \
   --config "$CONFIG" \
   --producer user-api \
   --old "$OLD" \
@@ -70,11 +70,11 @@ pactwatch check \
 echo
 
 # ----------------------------------------------------------
-# 6. pactwatch check — single consumer (web-dashboard)
+# 6. breakwatch check — single consumer (web-dashboard)
 # ----------------------------------------------------------
-echo ">>> 6. pactwatch check — single consumer: web-dashboard"
+echo ">>> 6. breakwatch check — single consumer: web-dashboard"
 echo "--------------------------------------------"
-pactwatch check \
+breakwatch check \
   --config "$CONFIG" \
   --producer user-api \
   --old "$OLD" \
@@ -84,11 +84,11 @@ pactwatch check \
 echo
 
 # ----------------------------------------------------------
-# 7. pactwatch check — JSON output
+# 7. breakwatch check — JSON output
 # ----------------------------------------------------------
-echo ">>> 7. pactwatch check — all consumers (JSON)"
+echo ">>> 7. breakwatch check — all consumers (JSON)"
 echo "--------------------------------------------"
-pactwatch check \
+breakwatch check \
   --config "$CONFIG" \
   --producer user-api \
   --old "$OLD" \

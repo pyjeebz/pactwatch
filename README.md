@@ -1,11 +1,11 @@
-# PactWatch
-> Your microservices have a contract. PactWatch enforces it before merge.
+# Breakwatch
+> Your microservices have a contract. Breakwatch enforces it before merge.
 
-An OpenAPI breaking-change detector that knows which downstream consumers will actually break. Most API diff tools tell you *what* changed. PactWatch tells you *who cares*.
+An OpenAPI breaking-change detector that knows which downstream consumers will actually break. Most API diff tools tell you *what* changed. Breakwatch tells you *who cares*.
 
 ## Demo
 
-![PactWatch demo](demo.svg)
+![Breakwatch demo](demo.svg)
 
 <sub>Also available as [MP4](demo.mp4) (for sharing) or [GIF](demo.gif).</sub>
 
@@ -13,7 +13,7 @@ An OpenAPI breaking-change detector that knows which downstream consumers will a
 
 Team A changes their API. Team B's mobile app breaks in production. The spec diff showed "field removed" — but nobody connected it to Team B.
 
-PactWatch maintains a service-to-consumer graph (`pactwatch.yaml`). When a producer's spec changes, it classifies each change as **BREAKING**, **RISKY**, or **SAFE**, then filters the results per consumer. Same spec change, different verdict per team.
+Breakwatch maintains a service-to-consumer graph (`breakwatch.yaml`). When a producer's spec changes, it classifies each change as **BREAKING**, **RISKY**, or **SAFE**, then filters the results per consumer. Same spec change, different verdict per team.
 
 ## How It Works
 
@@ -26,7 +26,7 @@ PactWatch maintains a service-to-consumer graph (`pactwatch.yaml`). When a produ
 ## Installation
 
 ```bash
-pip install pactwatch
+pip install breakwatch
 ```
 
 ## Quick Start
@@ -37,15 +37,15 @@ Compare two specs and get classified changes:
 
 ```bash
 # Rich terminal output
-pactwatch diff old-spec.yaml new-spec.yaml
+breakwatch diff old-spec.yaml new-spec.yaml
 
 # JSON for CI
-pactwatch diff old-spec.yaml new-spec.yaml --format json
+breakwatch diff old-spec.yaml new-spec.yaml --format json
 ```
 
 ### Per-consumer impact (Phase 2)
 
-Define your service topology in `pactwatch.yaml`:
+Define your service topology in `breakwatch.yaml`:
 
 ```yaml
 version: 1
@@ -72,13 +72,13 @@ Then check per-consumer impact:
 
 ```bash
 # Check all consumers
-pactwatch check -c pactwatch.yaml -p api --old old.yaml --new new.yaml
+breakwatch check -c breakwatch.yaml -p api --old old.yaml --new new.yaml
 
 # Check a single consumer
-pactwatch check -c pactwatch.yaml -p api --old old.yaml --new new.yaml --consumer mobile-app
+breakwatch check -c breakwatch.yaml -p api --old old.yaml --new new.yaml --consumer mobile-app
 
 # JSON for CI
-pactwatch check -c pactwatch.yaml -p api --old old.yaml --new new.yaml -f json
+breakwatch check -c breakwatch.yaml -p api --old old.yaml --new new.yaml -f json
 ```
 
 ### GitHub Action (Phase 3)
@@ -90,23 +90,23 @@ name: API Contract Check
 on: pull_request
 
 jobs:
-  pactwatch:
+  breakwatch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pyjeebz/pactwatch@v1
+      - uses: pyjeebz/breakwatch@v1
         with:
-          config: pactwatch.yaml
+          config: breakwatch.yaml
           producer: api
           old-spec: services/api/openapi.yaml  # from base branch
           new-spec: services/api/openapi.yaml  # from PR branch
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-PactWatch will:
+Breakwatch will:
 - Post a PR comment showing per-consumer impact
 - Set a commit status check (pass/fail)
 - Exit with code 1 if breaking changes affect any consumer
@@ -141,18 +141,18 @@ PactWatch will:
 
 ## CLI Reference
 
-### `pactwatch diff`
+### `breakwatch diff`
 
 ```
-pactwatch diff OLD NEW [--format text|json]
+breakwatch diff OLD NEW [--format text|json]
 ```
 
 Compare two OpenAPI specs. Exits with code 1 if BREAKING changes found.
 
-### `pactwatch check`
+### `breakwatch check`
 
 ```
-pactwatch check --config PATH --producer NAME --old PATH --new PATH
+breakwatch check --config PATH --producer NAME --old PATH --new PATH
                 [--consumer NAME] [--format text|json]
 ```
 
@@ -171,8 +171,8 @@ See the [demo monorepo](examples/demo-monorepo/) for a working example with 3 se
 
 ```bash
 # Run the demo
-pactwatch check \
-  -c examples/demo-monorepo/pactwatch.yaml \
+breakwatch check \
+  -c examples/demo-monorepo/breakwatch.yaml \
   -p user-api \
   --old examples/demo-monorepo/services/producer-api/openapi.yaml \
   --new examples/demo-monorepo/services/producer-api/openapi-breaking.yaml

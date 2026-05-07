@@ -1,6 +1,6 @@
-# PactWatch — Production Usage Guide
+# Breakwatch — Production Usage Guide
 
-> How to use PactWatch with real APIs in a real codebase.
+> How to use Breakwatch with real APIs in a real codebase.
 
 ---
 
@@ -11,7 +11,7 @@
 - Your specs live in version control (git)
 
 ```bash
-pip install pactwatch
+pip install breakwatch
 ```
 
 ---
@@ -39,7 +39,7 @@ If you don't know which endpoints each consumer uses, check:
 
 ---
 
-## Step 2: Write your `pactwatch.yaml`
+## Step 2: Write your `breakwatch.yaml`
 
 Create this file in your repo root (or wherever makes sense):
 
@@ -99,7 +99,7 @@ consumers:
 
 ---
 
-## Step 3: Run PactWatch locally
+## Step 3: Run Breakwatch locally
 
 ### Quick diff (no graph)
 
@@ -107,37 +107,37 @@ Compare any two versions of a spec:
 
 ```bash
 # Compare current spec to a modified version
-pactwatch diff openapi.yaml openapi-new.yaml
+breakwatch diff openapi.yaml openapi-new.yaml
 
 # Compare current branch to main
 git show main:services/orders-api/openapi.yaml > /tmp/old-spec.yaml
-pactwatch diff /tmp/old-spec.yaml services/orders-api/openapi.yaml
+breakwatch diff /tmp/old-spec.yaml services/orders-api/openapi.yaml
 
 # JSON output for scripting
-pactwatch diff old.yaml new.yaml --format json
+breakwatch diff old.yaml new.yaml --format json
 ```
 
 ### Per-consumer impact check
 
 ```bash
 # Check all consumers of a producer
-pactwatch check \
-  --config pactwatch.yaml \
+breakwatch check \
+  --config breakwatch.yaml \
   --producer orders-api \
   --old /tmp/old-spec.yaml \
   --new services/orders-api/openapi.yaml
 
 # Check a single consumer
-pactwatch check \
-  --config pactwatch.yaml \
+breakwatch check \
+  --config breakwatch.yaml \
   --producer orders-api \
   --consumer mobile-app \
   --old /tmp/old-spec.yaml \
   --new services/orders-api/openapi.yaml
 
 # JSON for CI pipelines
-pactwatch check \
-  --config pactwatch.yaml \
+breakwatch check \
+  --config breakwatch.yaml \
   --producer orders-api \
   --old /tmp/old-spec.yaml \
   --new services/orders-api/openapi.yaml \
@@ -150,7 +150,7 @@ pactwatch check \
 
 ### Option A: GitHub Action (recommended)
 
-Add to `.github/workflows/pactwatch.yml`:
+Add to `.github/workflows/breakwatch.yml`:
 
 ```yaml
 name: API Contract Check
@@ -161,7 +161,7 @@ on:
       - 'services/users-api/openapi.yaml'
 
 jobs:
-  pactwatch:
+  breakwatch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch
@@ -172,10 +172,10 @@ jobs:
           git fetch origin ${{ github.base_ref }}
           git show origin/${{ github.base_ref }}:services/orders-api/openapi.yaml > /tmp/old-spec.yaml
 
-      - name: Run PactWatch
-        uses: pyjeebz/pactwatch@v1
+      - name: Run Breakwatch
+        uses: pyjeebz/breakwatch@v1
         with:
-          config: pactwatch.yaml
+          config: breakwatch.yaml
           producer: orders-api
           old-spec: /tmp/old-spec.yaml
           new-spec: services/orders-api/openapi.yaml
@@ -190,14 +190,14 @@ This will:
 ### Option B: Generic CI (GitLab, CircleCI, Jenkins, etc.)
 
 ```bash
-pip install pactwatch
+pip install breakwatch
 
 # Get the old spec from the base branch
 git show origin/main:services/orders-api/openapi.yaml > /tmp/old-spec.yaml
 
 # Run check — exits 1 if breaking
-pactwatch check \
-  --config pactwatch.yaml \
+breakwatch check \
+  --config breakwatch.yaml \
   --producer orders-api \
   --old /tmp/old-spec.yaml \
   --new services/orders-api/openapi.yaml \
@@ -215,24 +215,24 @@ If you have multiple API specs that could change in one PR:
 
 ```yaml
 jobs:
-  pactwatch-orders:
+  breakwatch-orders:
     runs-on: ubuntu-latest
     steps:
       # ... checkout + fetch base ...
-      - uses: pyjeebz/pactwatch@v1
+      - uses: pyjeebz/breakwatch@v1
         with:
-          config: pactwatch.yaml
+          config: breakwatch.yaml
           producer: orders-api
           old-spec: /tmp/orders-old.yaml
           new-spec: services/orders-api/openapi.yaml
 
-  pactwatch-users:
+  breakwatch-users:
     runs-on: ubuntu-latest
     steps:
       # ... checkout + fetch base ...
-      - uses: pyjeebz/pactwatch@v1
+      - uses: pyjeebz/breakwatch@v1
         with:
-          config: pactwatch.yaml
+          config: breakwatch.yaml
           producer: users-api
           old-spec: /tmp/users-old.yaml
           new-spec: services/users-api/openapi.yaml
@@ -242,7 +242,7 @@ jobs:
 
 ## Step 5: Maintain the graph
 
-The `pactwatch.yaml` file needs to stay current as your services evolve:
+The `breakwatch.yaml` file needs to stay current as your services evolve:
 
 ### When to update
 
@@ -260,13 +260,13 @@ The `pactwatch.yaml` file needs to stay current as your services evolve:
 
 ### Validation
 
-PactWatch validates the config on every run:
+Breakwatch validates the config on every run:
 - References to unknown producers are caught immediately
 - Missing required fields produce clear error messages
 - You can validate the config without running a diff:
 
 ```bash
-python -c "from pactwatch.graph import load_graph; load_graph('pactwatch.yaml'); print('valid')"
+python -c "from breakwatch.graph import load_graph; load_graph('breakwatch.yaml'); print('valid')"
 ```
 
 ---
@@ -279,14 +279,14 @@ If your API is versioned and you publish OpenAPI specs per version:
 
 ```bash
 # Compare v2024-01 to v2024-06
-pactwatch diff specs/v2024-01.yaml specs/v2024-06.yaml
+breakwatch diff specs/v2024-01.yaml specs/v2024-06.yaml
 ```
 
 ### Example 2: Monorepo with shared specs
 
 ```
 monorepo/
-  pactwatch.yaml
+  breakwatch.yaml
   services/
     user-api/openapi.yaml
     billing-api/openapi.yaml
@@ -345,7 +345,7 @@ consumers:
 
 ### Example 3: Multi-repo setup
 
-If each service is in its own repo, put `pactwatch.yaml` in the producer repo and have consumers declare their dependencies there:
+If each service is in its own repo, put `breakwatch.yaml` in the producer repo and have consumers declare their dependencies there:
 
 ```yaml
 # In the user-api repo
@@ -426,19 +426,19 @@ consumers:
 ## Troubleshooting
 
 ### "Unsupported OpenAPI version"
-PactWatch requires OpenAPI 3.x. If your specs are Swagger 2.0, convert them first:
+Breakwatch requires OpenAPI 3.x. If your specs are Swagger 2.0, convert them first:
 ```bash
 npx swagger2openapi your-spec.yaml > openapi3-spec.yaml
 ```
 
 ### "$ref resolution errors"
-PactWatch resolves all `$ref` pointers automatically. If you get resolution errors, check that:
+Breakwatch resolves all `$ref` pointers automatically. If you get resolution errors, check that:
 - All referenced files exist at the relative paths
 - No circular `$ref` chains exist
 - External URLs in `$ref` are accessible
 
 ### "Unknown producer" error
-The producer name in `pactwatch check --producer X` must match a key in `pactwatch.yaml`'s `producers` section. Check for typos.
+The producer name in `breakwatch check --producer X` must match a key in `breakwatch.yaml`'s `producers` section. Check for typos.
 
 ### Consumer sees no changes
-If a consumer's endpoint list doesn't match the endpoints that changed, they'll see an empty report. This is correct — those changes don't affect them. Double-check the endpoint patterns in `pactwatch.yaml` match your actual API paths.
+If a consumer's endpoint list doesn't match the endpoints that changed, they'll see an empty report. This is correct — those changes don't affect them. Double-check the endpoint patterns in `breakwatch.yaml` match your actual API paths.
