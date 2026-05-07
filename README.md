@@ -1,12 +1,13 @@
 # PactWatch
-
-[![PyPI version](https://img.shields.io/pypi/v/pactwatch)](https://pypi.org/project/pactwatch/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pactwatch)](https://pypi.org/project/pactwatch/)
-[![License](https://img.shields.io/pypi/l/pactwatch)](https://github.com/pyjeebz/pactwatch/blob/main/LICENSE)
-
 > Your microservices have a contract. PactWatch enforces it before merge.
 
 An OpenAPI breaking-change detector that knows which downstream consumers will actually break. Most API diff tools tell you *what* changed. PactWatch tells you *who cares*.
+
+## Demo
+
+![PactWatch demo](demo.svg)
+
+<sub>Also available as [MP4](demo.mp4) (for sharing) or [GIF](demo.gif).</sub>
 
 ## The Problem
 
@@ -165,11 +166,6 @@ Check per-consumer impact using the consumer graph. Exits with code 1 if any con
 | 1 | Breaking changes detected |
 | 2 | Input error (bad spec, bad config, unknown producer) |
 
-## Demo
-
-![PactWatch demo](demo.svg)
-
-<sub>Also available as [MP4](demo.mp4) (for sharing) or [GIF](demo.gif).</sub>
 
 See the [demo monorepo](examples/demo-monorepo/) for a working example with 3 services.
 
