@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from pactwatch.graph import (
+from breakwatch.graph import (
     ConsumerGraph,
     GraphLoadError,
     endpoint_matches,
@@ -16,18 +16,18 @@ GRAPH_FIXTURES = Path(__file__).parent / "fixtures" / "graph"
 
 class TestLoadGraph:
     def test_loads_valid_config(self):
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         assert "api" in graph.producers
         assert "payments" in graph.producers
         assert "mobile-app" in graph.consumers
         assert "web-dashboard" in graph.consumers
 
     def test_producer_spec_paths(self):
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         assert graph.producers["api"].spec_path == Path("./api_old.yaml")
 
     def test_consumer_dependencies(self):
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         mobile = graph.consumers["mobile-app"]
         assert len(mobile.consumes) == 2
         producer_names = {dep.producer for dep in mobile.consumes}
@@ -45,7 +45,7 @@ class TestLoadGraph:
 class TestConsumerGraph:
     @pytest.fixture
     def graph(self):
-        return load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        return load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
 
     def test_consumers_of_api(self, graph):
         consumers = graph.consumers_of("api")

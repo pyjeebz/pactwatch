@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from pactwatch.loader import SpecLoadError, load_spec
+from breakwatch.loader import SpecLoadError, load_spec
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

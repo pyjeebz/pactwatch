@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import pytest
 
-from pactwatch.action import _get_pr_number, get_input
+from breakwatch.action import _get_pr_number, get_input
 
 GRAPH_FIXTURES = Path(__file__).parent / "fixtures" / "graph"
 

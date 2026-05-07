@@ -4,7 +4,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from pactwatch.cli import app
+from breakwatch.cli import app
 
 FIXTURES = Path(__file__).parent / "fixtures"
 GRAPH_FIXTURES = FIXTURES / "graph"
@@ -75,7 +75,7 @@ class TestCheckCommand:
     def test_check_all_consumers_text(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "api",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),
@@ -87,7 +87,7 @@ class TestCheckCommand:
     def test_check_single_consumer(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "api",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),
@@ -98,7 +98,7 @@ class TestCheckCommand:
     def test_check_json_format(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "api",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),
@@ -113,7 +113,7 @@ class TestCheckCommand:
     def test_check_exits_1_on_breaking(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "api",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),
@@ -124,7 +124,7 @@ class TestCheckCommand:
     def test_check_unknown_producer_exits_2(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "nonexistent",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),
@@ -134,7 +134,7 @@ class TestCheckCommand:
     def test_check_unknown_consumer_exits_2(self):
         result = runner.invoke(app, [
             "check",
-            "--config", str(GRAPH_FIXTURES / "pactwatch.yaml"),
+            "--config", str(GRAPH_FIXTURES / "breakwatch.yaml"),
             "--producer", "api",
             "--old", str(GRAPH_FIXTURES / "api_old.yaml"),
             "--new", str(GRAPH_FIXTURES / "api_new.yaml"),

@@ -2,19 +2,19 @@
 
 from pathlib import Path
 
-from pactwatch.classifier import Severity, classify
-from pactwatch.diff import diff_specs
-from pactwatch.filter import filter_for_consumer
-from pactwatch.formatters.markdown import MARKER, format_check_markdown
-from pactwatch.graph import load_graph
-from pactwatch.loader import load_spec
+from breakwatch.classifier import Severity, classify
+from breakwatch.diff import diff_specs
+from breakwatch.filter import filter_for_consumer
+from breakwatch.formatters.markdown import MARKER, format_check_markdown
+from breakwatch.graph import load_graph
+from breakwatch.loader import load_spec
 
 GRAPH_FIXTURES = Path(__file__).parent / "fixtures" / "graph"
 
 
 def _get_results():
     """Run the full pipeline and return per-consumer results."""
-    graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+    graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
     old = load_spec(GRAPH_FIXTURES / "api_old.yaml")
     new = load_spec(GRAPH_FIXTURES / "api_new.yaml")
     changes = diff_specs(old, new)
@@ -82,7 +82,7 @@ class TestMarkdownFormatter:
 
     def test_safe_status_when_no_breaking(self):
         # Manually create safe-only results
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         old = load_spec(GRAPH_FIXTURES / "api_old.yaml")
         # Diff same file = no changes
         changes = diff_specs(old, old)

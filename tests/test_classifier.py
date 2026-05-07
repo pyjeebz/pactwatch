@@ -2,9 +2,9 @@
 
 from pathlib import Path
 
-from pactwatch.classifier import ClassifiedChange, Severity, classify
-from pactwatch.diff import diff_specs
-from pactwatch.loader import load_spec
+from breakwatch.classifier import ClassifiedChange, Severity, classify
+from breakwatch.diff import diff_specs
+from breakwatch.loader import load_spec
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

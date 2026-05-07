@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from pactwatch.github import (
+from breakwatch.github import (
     COMMENT_MARKER,
     GitHubIntegrationError,
     _find_existing_comment,
@@ -14,9 +14,9 @@ from pactwatch.github import (
 
 
 class TestPostPrComment:
-    @patch("pactwatch.github.get_client")
+    @patch("breakwatch.github.get_client")
     def test_creates_new_comment(self, mock_get_client):
-        """When no existing PactWatch comment exists, creates a new one."""
+        """When no existing Breakwatch comment exists, creates a new one."""
         mock_pr = MagicMock()
         mock_pr.get_issue_comments.return_value = []
         mock_repo = MagicMock()
@@ -29,9 +29,9 @@ class TestPostPrComment:
 
         mock_pr.create_issue_comment.assert_called_once_with("test body")
 
-    @patch("pactwatch.github.get_client")
+    @patch("breakwatch.github.get_client")
     def test_updates_existing_comment(self, mock_get_client):
-        """When an existing PactWatch comment exists, edits it."""
+        """When an existing Breakwatch comment exists, edits it."""
         existing_comment = MagicMock()
         existing_comment.body = f"old report {COMMENT_MARKER}"
         mock_pr = MagicMock()
@@ -47,7 +47,7 @@ class TestPostPrComment:
         existing_comment.edit.assert_called_once_with("new body")
         mock_pr.create_issue_comment.assert_not_called()
 
-    @patch("pactwatch.github.get_client")
+    @patch("breakwatch.github.get_client")
     def test_raises_on_repo_error(self, mock_get_client):
         mock_client = MagicMock()
         mock_client.get_repo.side_effect = Exception("Not found")
@@ -58,7 +58,7 @@ class TestPostPrComment:
 
 
 class TestSetCommitStatus:
-    @patch("pactwatch.github.get_client")
+    @patch("breakwatch.github.get_client")
     def test_sets_status(self, mock_get_client):
         mock_commit = MagicMock()
         mock_repo = MagicMock()
@@ -72,11 +72,11 @@ class TestSetCommitStatus:
         mock_commit.create_status.assert_called_once_with(
             state="success",
             description="All good",
-            context="pactwatch",
+            context="breakwatch",
             target_url="",
         )
 
-    @patch("pactwatch.github.get_client")
+    @patch("breakwatch.github.get_client")
     def test_truncates_long_description(self, mock_get_client):
         mock_commit = MagicMock()
         mock_repo = MagicMock()

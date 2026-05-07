@@ -2,11 +2,11 @@
 
 from pathlib import Path
 
-from pactwatch.classifier import Severity, classify
-from pactwatch.diff import diff_specs
-from pactwatch.filter import filter_for_consumer
-from pactwatch.graph import load_graph
-from pactwatch.loader import load_spec
+from breakwatch.classifier import Severity, classify
+from breakwatch.diff import diff_specs
+from breakwatch.filter import filter_for_consumer
+from breakwatch.graph import load_graph
+from breakwatch.loader import load_spec
 
 GRAPH_FIXTURES = Path(__file__).parent / "fixtures" / "graph"
 
@@ -22,7 +22,7 @@ class TestFilterForConsumer:
     """Test filtering with the api producer specs."""
 
     def setup_method(self):
-        self.graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        self.graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         self.classified = _load_and_classify("api_old.yaml", "api_new.yaml")
 
     def test_mobile_app_gets_relevant_changes(self):
@@ -84,7 +84,7 @@ class TestFilterPayments:
     """Test filtering with the payments producer specs."""
 
     def test_mobile_sees_breaking_payment_change(self):
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch.yaml")
         classified = _load_and_classify("payments_old.yaml", "payments_new.yaml")
 
         mobile = graph.consumers["mobile-app"]
@@ -100,7 +100,7 @@ class TestFilterGlob:
     """Test glob matching in consumer endpoint patterns."""
 
     def test_glob_matches_admin_endpoints(self):
-        graph = load_graph(GRAPH_FIXTURES / "pactwatch_glob.yaml")
+        graph = load_graph(GRAPH_FIXTURES / "breakwatch_glob.yaml")
         classified = _load_and_classify("api_old.yaml", "api_new.yaml")
 
         admin = graph.consumers["admin-dashboard"]
