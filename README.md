@@ -167,6 +167,10 @@ Check per-consumer impact using the consumer graph. Exits with code 1 if any con
 
 ## Demo
 
+![PactWatch demo](demo.svg)
+
+<sub>Also available as [MP4](demo.mp4) (for sharing) or [GIF](demo.gif).</sub>
+
 See the [demo monorepo](examples/demo-monorepo/) for a working example with 3 services.
 
 ```bash
