@@ -1,4 +1,4 @@
-name: 'PactWatch'
+name: 'Breakwatch'
 description: 'Detect breaking API changes and report per-consumer impact on pull requests.'
 author: 'Mujeeb Lawal-Saka'
 
@@ -8,7 +8,7 @@ branding:
 
 inputs:
   config:
-    description: 'Path to pactwatch.yaml config file'
+    description: 'Path to breakwatch.yaml config file'
     required: true
   producer:
     description: 'Name of the producer to check'

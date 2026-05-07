@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pactwatch"
+name = "breakwatch"
 version = "0.1.0"
 description = "An OpenAPI breaking-change detector that knows which downstream consumers will actually break."
 readme = "README.md"
@@ -40,12 +40,12 @@ dev = [
 ]
 
 [project.scripts]
-pactwatch = "pactwatch.cli:app"
+breakwatch = "breakwatch.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/pyjeebz/pactwatch"
-Repository = "https://github.com/pyjeebz/pactwatch"
-Issues = "https://github.com/pyjeebz/pactwatch/issues"
+Homepage = "https://github.com/pyjeebz/breakwatch"
+Repository = "https://github.com/pyjeebz/breakwatch"
+Issues = "https://github.com/pyjeebz/breakwatch/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
