@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github import Github
     from github.PullRequest import PullRequest
 
-COMMENT_MARKER = "<!-- pactwatch-report -->"
+COMMENT_MARKER = "<!-- breakwatch-report -->"
 
 
 class GitHubIntegrationError(Exception):
@@ -32,7 +32,7 @@ def get_client(token: str) -> "Github":
     except ImportError:
         raise GitHubIntegrationError(
             "pygithub is not installed. "
-            "Install it with: pip install pactwatch[github]"
+            "Install it with: pip install breakwatch[github]"
         )
     return Github(token)
 
@@ -43,15 +43,15 @@ def post_pr_comment(
     pr_number: int,
     body: str,
 ) -> None:
-    """Create or update a PactWatch comment on a pull request.
+    """Create or update a Breakwatch comment on a pull request.
 
     Uses an upsert pattern: searches for an existing comment containing
-    the PactWatch marker and edits it. If no existing comment is found,
+    the Breakwatch marker and edits it. If no existing comment is found,
     creates a new one.
 
     Args:
         token: GitHub token with PR comment permissions.
-        repo_name: Full repo name (e.g. 'pyjeebz/pactwatch').
+        repo_name: Full repo name (e.g. 'pyjeebz/breakwatch').
         pr_number: Pull request number.
         body: The markdown body to post.
     """
@@ -65,7 +65,7 @@ def post_pr_comment(
             f"Failed to access PR #{pr_number} in {repo_name}: {exc}"
         ) from exc
 
-    # Search for existing PactWatch comment (upsert)
+    # Search for existing Breakwatch comment (upsert)
     existing = _find_existing_comment(pr)
     if existing:
         try:
@@ -109,7 +109,7 @@ def set_commit_status(
         commit.create_status(
             state=state,
             description=description[:140],  # GitHub limits to 140 chars
-            context="pactwatch",
+            context="breakwatch",
             target_url=target_url or "",
         )
     except Exception as exc:
@@ -119,7 +119,7 @@ def set_commit_status(
 
 
 def _find_existing_comment(pr: "PullRequest"):
-    """Find an existing PactWatch comment on a PR."""
+    """Find an existing Breakwatch comment on a PR."""
     for comment in pr.get_issue_comments():
         if COMMENT_MARKER in (comment.body or ""):
             return comment

@@ -55,7 +55,7 @@ def load_spec(path: Path | str) -> dict:
     if not openapi_version.startswith("3."):
         raise SpecLoadError(
             f"Unsupported OpenAPI version: {openapi_version!r}. "
-            "PactWatch requires OpenAPI 3.x."
+            "Breakwatch requires OpenAPI 3.x."
         )
 
     return spec

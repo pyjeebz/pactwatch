@@ -1,4 +1,4 @@
-"""Consumer graph — load and query pactwatch.yaml."""
+"""Consumer graph — load and query breakwatch.yaml."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import yaml
 
 
 class GraphLoadError(Exception):
-    """Raised when a pactwatch.yaml file cannot be loaded or is invalid."""
+    """Raised when a breakwatch.yaml file cannot be loaded or is invalid."""
 
 
 @dataclass
@@ -36,7 +36,7 @@ class Consumer:
 
 @dataclass
 class ConsumerGraph:
-    """The full service-to-consumer graph parsed from pactwatch.yaml."""
+    """The full service-to-consumer graph parsed from breakwatch.yaml."""
     producers: dict[str, Producer] = field(default_factory=dict)
     consumers: dict[str, Consumer] = field(default_factory=dict)
     _config_dir: Path = field(default_factory=lambda: Path("."))
@@ -67,10 +67,10 @@ class ConsumerGraph:
 
 
 def load_graph(path: Path | str) -> ConsumerGraph:
-    """Load and validate a pactwatch.yaml consumer graph config.
+    """Load and validate a breakwatch.yaml consumer graph config.
 
     Args:
-        path: Path to the pactwatch.yaml file.
+        path: Path to the breakwatch.yaml file.
 
     Returns:
         A validated ConsumerGraph.

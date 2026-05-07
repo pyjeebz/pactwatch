@@ -1,4 +1,4 @@
-"""GitHub Action entrypoint for PactWatch."""
+"""GitHub Action entrypoint for Breakwatch."""
 
 from __future__ import annotations
 
@@ -7,12 +7,12 @@ import os
 import sys
 from pathlib import Path
 
-from pactwatch.classifier import Severity, classify
-from pactwatch.diff import diff_specs
-from pactwatch.filter import filter_for_consumer
-from pactwatch.formatters.markdown import format_check_markdown
-from pactwatch.graph import GraphLoadError, load_graph
-from pactwatch.loader import SpecLoadError, load_spec
+from breakwatch.classifier import Severity, classify
+from breakwatch.diff import diff_specs
+from breakwatch.filter import filter_for_consumer
+from breakwatch.formatters.markdown import format_check_markdown
+from breakwatch.graph import GraphLoadError, load_graph
+from breakwatch.loader import SpecLoadError, load_spec
 
 
 def get_input(name: str, required: bool = True) -> str:
@@ -100,10 +100,10 @@ def run() -> None:
     # Post PR comment if we have a token and PR number
     if github_token and pr_number and github_repo:
         try:
-            from pactwatch.github import post_pr_comment, set_commit_status
+            from breakwatch.github import post_pr_comment, set_commit_status
 
             post_pr_comment(github_token, github_repo, pr_number, markdown)
-            print(f"::notice::Posted PactWatch report to PR #{pr_number}")
+            print(f"::notice::Posted Breakwatch report to PR #{pr_number}")
 
             # Set commit status
             if github_sha:

@@ -1,4 +1,4 @@
-"""PactWatch CLI -- Typer-based command-line interface."""
+"""Breakwatch CLI -- Typer-based command-line interface."""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ from typing import Optional
 import typer
 from rich.console import Console
 
-from pactwatch.classifier import Severity, classify
-from pactwatch.diff import diff_specs
-from pactwatch.filter import filter_for_consumer
-from pactwatch.formatters.json import format_check_json, format_json
-from pactwatch.formatters.text import format_check_text, format_text
-from pactwatch.graph import GraphLoadError, load_graph
-from pactwatch.loader import SpecLoadError, load_spec
+from breakwatch.classifier import Severity, classify
+from breakwatch.diff import diff_specs
+from breakwatch.filter import filter_for_consumer
+from breakwatch.formatters.json import format_check_json, format_json
+from breakwatch.formatters.text import format_check_text, format_text
+from breakwatch.graph import GraphLoadError, load_graph
+from breakwatch.loader import SpecLoadError, load_spec
 
 app = typer.Typer(
-    name="pactwatch",
+    name="breakwatch",
     help="OpenAPI breaking-change detector with consumer-graph awareness.",
     add_completion=False,
 )
@@ -67,7 +67,7 @@ def diff_cmd(
 @app.command("check")
 def check_cmd(
     config: Path = typer.Option(
-        ..., "--config", "-c", help="Path to pactwatch.yaml config file."
+        ..., "--config", "-c", help="Path to breakwatch.yaml config file."
     ),
     producer: str = typer.Option(
         ..., "--producer", "-p", help="Name of the producer to check."
@@ -90,7 +90,7 @@ def check_cmd(
 ) -> None:
     """Check per-consumer impact of a spec change using the consumer graph.
 
-    Loads the consumer graph from pactwatch.yaml, diffs the old and new specs,
+    Loads the consumer graph from breakwatch.yaml, diffs the old and new specs,
     then filters changes per consumer to show who is actually affected.
 
     Exits with code 1 if any consumer has BREAKING changes.

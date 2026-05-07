@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json as _json
 
-from pactwatch.classifier import ClassifiedChange, Severity
+from breakwatch.classifier import ClassifiedChange, Severity
 
 
 def format_json(changes: list[ClassifiedChange]) -> str:

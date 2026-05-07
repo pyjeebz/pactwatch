@@ -7,7 +7,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from pactwatch.classifier import ClassifiedChange, Severity
+from breakwatch.classifier import ClassifiedChange, Severity
 
 
 _SEVERITY_STYLES = {
@@ -38,7 +38,7 @@ def format_text(changes: list[ClassifiedChange], console: Console | None = None)
     console.print()
     console.print(
         Panel(
-            Text("PactWatch - Change Report", style="bold white"),
+            Text("Breakwatch - Change Report", style="bold white"),
             style="blue",
         )
     )
@@ -99,7 +99,7 @@ def format_check_text(
     console.print()
     console.print(
         Panel(
-            Text(f"PactWatch - Consumer Impact: {producer}", style="bold white"),
+            Text(f"Breakwatch - Consumer Impact: {producer}", style="bold white"),
             style="blue",
         )
     )

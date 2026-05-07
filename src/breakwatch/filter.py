@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from pactwatch.classifier import ClassifiedChange
-from pactwatch.graph import Consumer, endpoint_matches
+from breakwatch.classifier import ClassifiedChange
+from breakwatch.graph import Consumer, endpoint_matches
 
 
 def filter_for_consumer(

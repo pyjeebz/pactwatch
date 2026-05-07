@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from pactwatch.classifier import ClassifiedChange, Severity
+from breakwatch.classifier import ClassifiedChange, Severity
 
-MARKER = "<!-- pactwatch-report -->"
+MARKER = "<!-- breakwatch-report -->"
 
 
 def format_check_markdown(
@@ -33,7 +33,7 @@ def format_check_markdown(
     status = "BREAKING changes detected" if has_breaking else "No breaking changes"
     status_icon = "X" if has_breaking else "check"
 
-    lines.append("## PactWatch - API Change Report")
+    lines.append("## Breakwatch - API Change Report")
     lines.append("")
     lines.append(
         f"**Producer**: `{producer}` | "
