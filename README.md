@@ -5,9 +5,9 @@ An OpenAPI breaking-change detector that knows which downstream consumers will a
 
 ## Demo
 
-![Breakwatch demo](demo.svg)
+![Breakwatch demo](demo.gif)
 
-<sub>Also available as [MP4](demo.mp4) (for sharing) or [GIF](demo.gif).</sub>
+<sub>Also available as [MP4](demo.mp4) for sharing.</sub>
 
 ## The Problem
 
