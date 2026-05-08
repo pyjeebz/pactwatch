@@ -32,24 +32,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-  /users/{id}/orders:
-    get:
-      summary: Get user orders
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Order'
+        "404":
+          description: Not found
   /admin/settings:
     get:
       summary: Get admin settings
@@ -111,10 +95,13 @@ components:
       required:
         - id
         - name
+        - email
       properties:
         id:
           type: string
         name:
+          type: string
+        email:
           type: string
         avatar_url:
           type: string
@@ -127,12 +114,9 @@ components:
     Order:
       type: object
       required:
-        - order_id
         - total
         - currency
       properties:
-        order_id:
-          type: string
         total:
           type: integer
         currency:
