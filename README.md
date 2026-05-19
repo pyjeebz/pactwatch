@@ -97,7 +97,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pyjeebz/breakwatch@v1
+      - uses: pyjeebz/breakwatch@v0.1.0
         with:
           config: breakwatch.yaml
           producer: api
