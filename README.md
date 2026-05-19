@@ -31,7 +31,7 @@ pip install breakwatch
 
 ## Quick Start
 
-### Raw diff (Phase 1)
+### Raw diff
 
 Compare two specs and get classified changes:
 
@@ -43,7 +43,7 @@ breakwatch diff old-spec.yaml new-spec.yaml
 breakwatch diff old-spec.yaml new-spec.yaml --format json
 ```
 
-### Per-consumer impact (Phase 2)
+### Per-consumer impact
 
 Define your service topology in `breakwatch.yaml`:
 
@@ -81,7 +81,7 @@ breakwatch check -c breakwatch.yaml -p api --old old.yaml --new new.yaml --consu
 breakwatch check -c breakwatch.yaml -p api --old old.yaml --new new.yaml -f json
 ```
 
-### GitHub Action (Phase 3)
+### GitHub Action
 
 Add to your workflow:
 
